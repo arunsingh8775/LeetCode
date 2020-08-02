@@ -1,1 +1,48 @@
 
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode bstToGst(TreeNode root) {
+        
+       ArrayList<TreeNode> list = new ArrayList<TreeNode>();
+       TreeNode ans = root;
+       Stack<TreeNode> s = new Stack<TreeNode>();
+       
+       while(root!=null||s.size()>0)
+       {
+           while(root!=null)
+           {
+               s.push(root);
+               root=root.left;
+           }
+           
+           root = s.pop();
+           list.add(root);
+           root=root.right;
+           
+       }
+        
+        int sum = 0;
+        
+        for(int i=list.size()-1;i>=0;i--)
+        {
+            sum = sum + list.get(i).val;
+            list.get(i).val = sum;
+        }
+
+        return ans;
+    }
+}
